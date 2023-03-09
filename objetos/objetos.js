@@ -9,4 +9,8 @@ const libro = {
 
 // Se puede acceder a las propiedades de un objeto mediante la notacion de corchetes
 
-console.log(libro.titulo)
+console.log(libro.titulo);
+console.log(`Es un libro de ${libro.paginas} paginas`);
+libro.color = 'amarillo'; // modifica la propiedad color
+libro.ambito = 'Espiritualidad'
+console.log(`Su ámbito radica en la ${libro.ambito}`);
