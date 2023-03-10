@@ -1,18 +1,18 @@
-const cuentaBancaria = {
+const account = {
   titular: 'Sergio',
   balance: 0,
 
-  credito (valor){
+  credit (valor){
     this.balance += valor;
     return this.balance
   },
-  descripcion(){
-    const texto = `Su nombre es ${this.titular} y su balance es de ${this.balance}`
-    return console.log(texto)
+  description(){
+    const text = `Su user es ${this.titular} y su balance es de ${this.balance}`
+    return console.log(text)
   }
 }
-cuentaBancaria.credito(1200)
-cuentaBancaria.descripcion()
+account.credit(1200)
+account.description()
 
 
 
