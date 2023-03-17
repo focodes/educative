@@ -1,4 +1,4 @@
-// refactorización
+// refactoring
 const movie_list = [
   {
     title: "Spider-man",
@@ -23,3 +23,4 @@ for (const movie of movie_list){
   titles.push(movie.title)
 } 
 console.log(titles)
+
