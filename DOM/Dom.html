@@ -12,52 +12,14 @@
     />
     <title>Page</title>
     <style>
-      *{
-        font-family: 'Fira Sans', sans-serif;
+      * {
+        font-family: "Fira Sans", sans-serif;
       }
     </style>
-    <script>
-      const accessToHead = document.head;
-      const accessToBody = document.body;
-
-      if (document.body.nodeType === document.ELEMENT_NODE){ //con NodeType se puede acceder al tipo de elemento de body
-        console.log("Body is an element node!")
-      }
-      else {
-        console.log("Body is a textual node!")
-      }
-      // tres maneras de iterar sobre los childNodes
-      for (const node of document.head.childNodes){
-        console.log(node.nodeName)
-      }
-      document.body.childNodes.forEach(node => {
-        console.log(node.Name)
-      })
-      //se puede acceder al nodo padre
-      const h1 = document.body.childNodes[1]
-      const parentNodeH1 = h1.parentNode.nodeName;
-       console.log(parentNodeH1)
-      ///coding exercise
-      function showChild (node, index){
-         let c = node.children;
-         if (index < 0 || (c && index >= c.length)){
-           return "Wrong Index"
-
-         }
-         else if(node.childNodes[index] === undefined){
-           return "Wrong Node Type"
-         }
-         else {
-           return node.childNodes[index].nodeName
-         }
-      }
-
-    </script>
   </head>
   <body>
     <h1>My website</h1>
     <p>My name is develocod, I am a junior web developer</p>
     <p>I live in the city of Yopal</p>
-  <p>Mi perfil de Git Hub es <a href="https://github.com/focodes">develocod</a>.</p>
   </body>
 </html>
