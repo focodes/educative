@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Terms</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+<style>
+  *{
+    font-family: 'Poppins', sans-serif;
+  }
+</style>
+<body>
+<h1>Discrete mathematics</h1>
+<p>Is an area of mathematics that focuses on the study of countable finite and infinite sets, where the elements can be counted separately one by one, as is the case with the set of natural numbers.</p>
+
+<h1>Programming</h1>
+<p>Refers to the process of designing, coding, debugging and maintaining the source code of software, in order to create programs that perform specific tasks efficiently. Programming is an essential discipline in modern computer engineering and is used in a wide variety of areas, such as computer architecture, functional programming, distributed systems, machine learning, and artificial intelligence.</p>
+
+<h1>Artificial Intelligence</h1>
+<p>Is a field of computer science that focuses on the design and development of algorithms and systems capable of performing tasks that require human intelligence, such as decision making, pattern recognition, natural language processing, and learning. AI is used in a wide variety of applications, such as industrial automation, robotics, recommender systems, and chatbots</p>
+</body>
+<script>
+  const textColor = "#181823";
+  const backgroundColor = "#537FE7";
+
+  const pElements = Array.from(document.getElementsByTagName("p"));
+  pElements.forEach(iterator => {
+      iterator.style.color = textColor;
+      iterator.style.backgroundColor = backgroundColor;
+  })
+</script>
+</html>

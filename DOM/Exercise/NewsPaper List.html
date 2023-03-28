@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Newspaper List</title>
+</head>
+<body>
+<div id="content"></div>
+</body>
+<script>
+  const newspapers = [
+    "https://www.nytimes.com",
+    "https://www.washingtonpost.com",
+    "https://www.economist.com"
+  ];
+  const titleElement = document.createElement("h3");
+  titleElement.textContent = "Some newspaper";
+  document.getElementById("content").appendChild(titleElement)
+
+  const contentElement = document.getElementById("content");
+  newspapers.forEach(iterator => {
+    const linkElement = document.createElement("a");
+    linkElement.text = iterator;
+    linkElement.href = iterator;
+    contentElement.appendChild(linkElement);
+    contentElement.appendChild(document.createElement("br"))
+  })
+</script>
+</html>
