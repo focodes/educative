@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AddEventListener</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <style>
+    * {
+      font-family: "Fira Sans", sans-serif;
+    }
+  </style>
+  <body>
+    <h3>Add event Listener</h3>
+    <button id="button">Click me!</button>
+    <p>Hecho por develocod</p>
+  </body>
+  <script>
+    const showMessage = () => {
+      alert("Hodway!");
+    };
+    // Acceso hacia el botón
+    const buttonElement = document.getElementById("button");
+    buttonElement.addEventListener("click", showMessage);
+
+    /*
+    Usando funcion anonima
+    document.getElementById("Button").addEventListener("click", () => {
+      alert("Hodway!");
+    })
+    */
+
+    buttonElement.removeEventListener("click", showMessage);
+
+    buttonElement.addEventListener("click", (variable) => {
+      console.log(`Event type: ${variable.type}, target: ${variable.target}`);
+    });
+    // Escuchando a las teclas
+    document.addEventListener("keypress", (variable) => {
+      console.log(
+        `You pressed the ${String.fromCharCode(variable.charCode)} key`
+      );
+    });
+
+    const keyboardInfo = (variable) => {
+      console.log(
+        `Keyboard event: ${variable.type}, key: ${variable.keyCode} `
+      );
+    };
+    document.addEventListener("keydown", keyboardInfo);
+    document.addEventListener("keyup", keyboardInfo);
+  </script>
+</html>
