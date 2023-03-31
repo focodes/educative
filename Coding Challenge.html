@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Press</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<style>
+ *{
+     font-family: 'Inter', sans-serif;
+ }
+ div {
+     margin-top: 1em;
+ }
+ body{
+     margin: 0;
+     padding: 0;
+ }
+ main{
+     max-width: 1200px;
+     margin: 0 auto;
+     padding-left: 200px;
+     padding-right: 200px;
+     padding-bottom: 100px;
+ }
+ul{
+    list-style-type: circlet;
+}
+
+
+</style>
+<body>
+<!--main content-->
+<main>
+
+    <h1>
+        Counting Clicks
+    </h1>
+    <section>
+        <button id="testButton" >Click me!</button>
+        <p>You clicked on the button <span id="clickCount">0</span> times</p>
+        <button id="deactivate">Deactivate Counting</button>
+    </section>
+    <h1>
+        Changing Colors
+    </h1>
+    <p>Press the initial letter of the color to apply, for now they are available</p>
+    <ul>
+        <li>R (red)</li>
+        <li>Y (yellow)</li>
+        <li>B (blue)</li>
+        <li>G (green)</li>
+    </ul>
+    <h2>Argumentation</h2>
+    <div id="textArgument">
+        ✍🏽 Arguing is contemplated as an art. It is a book that studies the rules of argumentation.
+        The main concept is conceived as a set of reasons or evidence in favor of a conclusion. The opinions are supported by evidence, which allows us to know which ones are the best. Good opinions with strong reasons must be distinguished from weak ones without support.
+    </div><br>
+    <div>
+        Arguing is presented as a way of inquiring, in the face of any topic that generates debate it is important not to consult one's own prejudices but to start asking questions that allow one to understand the particular case and take the strongest argumentative position.
+    </div><br>
+    <div>
+        The conclusion alone does not stand unless the path taken to reach it is demonstrated, during which you will discover why to support or refute a supported one and use this information to generate strong opinions.
+    </div>
+    <h1>
+        My favorite dessert
+    </h1>
+    <ul id="desserts">
+        <!--Empty list for now-->
+
+    </ul>
+    <p><button id="addButton">Add a dessert</button></p>
+
+    <blockquote>
+        <p>A problem well stated is a problem half solved.</p>
+        <cite>Charles Kettering</cite>
+        <small> (citado en <em>Source Title</em>)</small>
+    </blockquote>
+
+</main>
+</body>
+
+<script>
+    const click = () => {
+        const clickCountElement = document.getElementById("clickCount");
+        const clickCount = Number(clickCountElement.textContent);
+        clickCountElement.textContent = clickCount + 1;
+    };
+    document.getElementById("testButton").addEventListener("click", click)
+    document.getElementById("deactivate").addEventListener("click", () =>{
+        document.getElementById("testButton").removeEventListener("click",click)
+    });
+    //changing colors
+    document.addEventListener("keydown", x => {
+        let key = x.key;
+        key = key.toUpperCase() // letter
+        let colour = "";
+        switch (key){
+            case "R":
+                colour = "#FC2947";
+                break;
+            case "Y":
+                colour = "#FFE15D";
+                break;
+            case "G":
+                colour = "#5FD068";
+                break;
+            case "B":
+                colour = "#537FE7";
+                break;
+            default:
+                alert(`The ${key} key is not handled.`)
+
+        }
+    const divElement = Array.from(document.getElementsByTagName("div"));
+        divElement.forEach(x => {
+            x.style.backgroundColor = colour;
+        })
+    })
+    // A dessert List
+    document.querySelector("#addButton").addEventListener("click", () => {
+        const dessertName = prompt("Enter the dessert name: ");
+        const dessertElement = document.createElement("li");
+        dessertElement.textContent = dessertName;
+        dessertElement.addEventListener("click", x => {
+            const newName = prompt(
+                `Update the name of dessert ${x.target.textContent}: `
+            )
+            x.target.textContent = newName;
+        });
+        document.getElementById("desserts").appendChild(dessertElement)
+
+    })
+</script>
+</html>
