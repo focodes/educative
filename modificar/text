@@ -1,0 +1,28 @@
+// Return the name of the mouse button
+const getMouseButton = code => {  // Definimos una función llamada getMouseButton que toma un parámetro llamado code
+  let button = "unknown";  // Declaramos una variable llamada button y le asignamos el valor "unknown"
+  switch (code) {  // Iniciamos una estructura switch utilizando el valor del parámetro code como la expresión a evaluar
+    case 0:  // Si el valor de code es igual a 0, ejecutamos el siguiente bloque de código
+      button = "left";  // Asignamos el valor "left" a la variable button
+      break;  // Salimos de la estructura switch
+    case 1:  // Si el valor de code es igual a 1, ejecutamos el siguiente bloque de código
+      button = "middle";  // Asignamos el valor "middle" a la variable button
+      break;  // Salimos de la estructura switch
+    case 2:  // Si el valor de code es igual a 2, ejecutamos el siguiente bloque de código
+      button = "right";  // Asignamos el valor "right" a la variable button
+      break;  // Salimos de la estructura switch
+  }
+  return button;  // Devolvemos el valor de la variable button
+};
+
+// Show info about mouse event
+const mouseInfo = e => {  // Definimos una función llamada mouseInfo que toma un parámetro llamado e
+  console.log(  // Mostramos un mensaje en la consola del navegador con la información del evento del ratón
+    `Mouse event: ${e.type}, button: ${getMouseButton(
+      e.button
+    )}, X: ${e.clientX}, Y: ${e.clientY}`
+  );
+};
+
+// Add mouse click event listener
+document.addEventListener("click", mouseInfo);  // Añadimos un event listener para el evento click en el documento (página web) que ejecuta la función mouseInfo cuando se produce el evento
