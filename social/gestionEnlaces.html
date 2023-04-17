@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+      rel="stylesheet"
+    />
+    <meta charset="utf-8" />
+    <!-- Latest compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <title>A social news web page</title>
+    <style>
+      *{
+          font-family: 'Fira Sans', sans-serif;
+      }
+  </style>
+  </head>
+  <style>
+    body {
+      background-color: #eee;
+    }
+
+    /* Main link element (<div> tag) */
+    .link {
+      background: white;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    /* Link title (<a> tag) */
+    .linkTitle {
+      color: #428bca;
+      text-decoration: none;
+      margin-right: 5px;
+    }
+    .linkTitle:hover {
+      text-decoration: none;
+    }
+
+    /* Link URL (<span> tag) */
+    .linkUrl {
+      font-weight: normal;
+      font-size: 80%;
+    }
+
+    /* Link headline containing title & URL (<h4> tag) */
+    .linkHeadline {
+      margin: 0;
+    }
+
+    /* Link author (<span> tag) */
+    .linkAuthor {
+      font-weight: normal;
+      font-size: 80%;
+    }
+
+    .linkForm {
+      margin-bottom: 20px;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <!-- Bootstrap navigation bar -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button
+              type="button"
+              class="navbar-toggle collapsed"
+              data-toggle="collapse"
+              data-target="#bs-example-navbar-collapse-1"
+              aria-expanded="false"
+            >
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"
+              ><span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+              PubLink</a
+            >
+          </div>
+          <div
+            class="collapse navbar-collapse"
+            id="bs-example-navbar-collapse-1"
+          >
+            <button
+              type="button"
+              id="submitButton"
+              class="btn btn-default navbar-btn"
+            >
+              Submit
+            </button>
+            <p class="navbar-text navbar-right">
+              A social news web page built with ❤ and JavaScript
+            </p>
+          </div>
+        </div>
+      </nav>
+
+      <div id="content">
+        <!-- Dynamic content goes here -->
+      </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </body>
+
+  <script>
+    // Represent a link
+    class Link {
+      constructor(title, url, author) {
+        let absoluteUrl = url;
+        // Check if url starts with "http://" or "https://"
+        if (
+          !absoluteUrl.startsWith("http://") &&
+          !absoluteUrl.startsWith("https://")
+        ) {
+          // If not, add "http://" at the beginning
+          absoluteUrl = `http://${absoluteUrl}`;
+        }
+
+        // Add data properties
+        this.title = title;
+        this.author = author;
+        this.url = absoluteUrl;
+      }
+
+      // Describe the link as a string
+      toString() {
+        return `${this.title} (${this.url}). Author: ${this.author}`;
+      }
+    }
+
+    const contentElement = document.getElementById("content");
+
+    // Create and return a DOM element showing a link
+    const createLinkElement = (link) => {
+      // Create DOM element for link title
+      const titleElement = document.createElement("a");
+      titleElement.href = link.url;
+      titleElement.classList.add("linkTitle");
+      titleElement.appendChild(document.createTextNode(link.title));
+
+      // Create DOM element for link URL
+      const urlElement = document.createElement("span");
+      urlElement.classList.add("linkUrl");
+      urlElement.appendChild(document.createTextNode(link.url));
+
+      // Create DOM element for link headline, containing title & URL
+      const headlineElement = document.createElement("h4");
+      headlineElement.classList.add("linkHeadline");
+      headlineElement.appendChild(titleElement);
+      headlineElement.appendChild(urlElement);
+
+      // Create DOM element for link author
+      const authorElement = document.createElement("span");
+      authorElement.classList.add("linkAuthor");
+      authorElement.appendChild(
+        document.createTextNode(`Submitted by ${link.author}`)
+      );
+
+      // Create DOM element for link
+      const linkElement = document.createElement("div");
+      linkElement.classList.add("link");
+      linkElement.appendChild(headlineElement);
+      linkElement.appendChild(authorElement);
+
+      return linkElement;
+    };
+
+    // Create and return a DOM input element
+    // Parameters are name, placeholder text and input size
+    const createInputElement = (name, placeholder, size) => {
+      const inputElement = document.createElement("input");
+      inputElement.type = "text";
+      inputElement.setAttribute("name", name);
+      inputElement.setAttribute("placeholder", placeholder);
+      inputElement.setAttribute("size", size);
+      inputElement.setAttribute("required", "true");
+      inputElement.classList.add("form-control");
+      return inputElement;
+    };
+
+    // Create and return a form for submitting a new link
+    const createLinkForm = () => {
+      // Create input fields for link properties
+      const authorElement = createInputElement("author", "Enter author", 20);
+      const titleElement = createInputElement("title", "Enter link title", 40);
+      const urlElement = createInputElement("url", "Enter link URL", 40);
+
+      // Create submit button
+      const submitElement = document.createElement("input");
+      submitElement.type = "submit";
+      submitElement.value = "Add link";
+      submitElement.classList.add("btn");
+      submitElement.classList.add("btn-primary");
+
+      // Create link submission form
+      const linkFormElement = document.createElement("form");
+      linkFormElement.classList.add("linkForm");
+      linkFormElement.classList.add("form-inline");
+      linkFormElement.appendChild(authorElement);
+      linkFormElement.appendChild(titleElement);
+      linkFormElement.appendChild(urlElement);
+      linkFormElement.appendChild(submitElement);
+
+      // Handle form submission
+      linkFormElement.addEventListener("submit", (e) => {
+        // Cancel default form behavior
+        e.preventDefault();
+
+        // Create new link object from field values
+        const newLink = new Link(
+          titleElement.value,
+          urlElement.value,
+          authorElement.value
+        );
+
+        // Add new link to page, replacing form
+        const newLinkElement = createLinkElement(newLink);
+        contentElement.replaceChild(newLinkElement, e.target);
+
+        // Create info message indicating success
+        const infoElement = document.createElement("div");
+        infoElement.classList.add("alert");
+        infoElement.classList.add("alert-success");
+        infoElement.textContent = `The link ${newLink.title} has been succesfully added!`;
+        contentElement.insertBefore(infoElement, newLinkElement);
+        // Remove info message after 2 seconds
+        setTimeout(() => {
+          contentElement.removeChild(infoElement);
+        }, 2000);
+      });
+
+      return linkFormElement;
+    };
+
+    // Initial links array
+    const links = [];
+    links.push(
+      new Link("Hacker News", "https://news.ycombinator.com", "Baptiste")
+    );
+    links.push(new Link("Reddit", "https://reddit.com", "Thomas"));
+    links.push(new Link("Boing Boing", "boingboing.net", "Daniel"));
+
+    // Add each link to page
+    links.forEach((link) => {
+      const linkElement = createLinkElement(link);
+      contentElement.appendChild(linkElement);
+    });
+
+    // Handle click on link submit button
+    document.getElementById("submitButton").addEventListener("click", () => {
+      // Create link submission form
+      const formElement = createLinkForm();
+      // Add form on page before the first link
+      contentElement.insertBefore(formElement, document.querySelector(".link"));
+    });
+  </script>
+</html>
