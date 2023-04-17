@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <style>
+    * {
+      font-family: "Fira Sans", sans-serif;
+    }
+    #ball {
+      position: relative;
+      left: 0px;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+  <body>
+    <button id="start">Start</button>
+    <p><span id="counter">0</span> elapsed second(s)</p>
+
+    <p>
+      <button id="start1">Start</button>
+      <button id="stop" disabled>Stop</button>
+    </p>
+
+    <div id="frame">
+      <img src="https://img.icons8.com/external-smashingstocks-flat-smashing-stocks/66/null/external-Leg-fitness-smashingstocks-flat-smashing-stocks.png"/>
+      <!-- Update the "src" attribute if you downloaded the image locally -->
+      <img id="ball"
+        src="https://img.icons8.com/stencil/32/null/experimental-football2-stencil.png"
+      />
+    </div>
+  </body>
+  <script>
+    const buttonElement = document.querySelector("button");
+    const counterElement = document.getElementById("counter");
+    // Global variable to access it from function
+    let intervalId = null;
+    // Chronometer state, initially stopped
+    let started = false;
+
+    buttonElement.addEventListener("click", () => {
+      if (!started) {
+        // Start the chronometer: add 1 to the counter each second
+        intervalId = setInterval(() => {
+          counterElement.textContent = String(
+            Number(counterElement.textContent) + 1
+          );
+        }, 1000);
+        // Update button text
+        buttonElement.textContent = "Stop";
+      } else {
+        // Stop the chronometer
+        clearInterval(intervalId);
+        // Update button text
+        buttonElement.textContent = "Start";
+      }
+      // Change chronometer state
+      started = !started;
+    });
+    // Espace
+    const frameElement = document.getElementById("frame");
+const ballElement = document.getElementById("ball");
+// Movement value in pixels
+const movement = 1;
+// Convert ball diameter (value of the form "XXpx") to a number
+const ballDiameter = parseFloat(getComputedStyle(ballElement).width);
+// Animation ID - Global variable to access it from functions
+let animationId = null;
+// Minimal left position (left border)
+const xMin = 0;
+// Direction info - 1=right, 2=left
+let direction = 1;
+
+// Déplace le ballElement vers la gauche ou la droite
+const animateBall = () => {
+  // Convert the left position of the ball (value of the form "XXpx") to a number
+  const xBall = parseFloat(getComputedStyle(ballElement).left);
+  // Convert the width of the frame (value of the form "XXpx") to a number
+  const xMax = parseFloat(getComputedStyle(frameElement).width);
+  // If the ball is at an adge of the frame
+  if (xBall + ballDiameter > xMax || xBall < xMin) {
+    // Change direction
+    direction *= -1;
+  }
+  // Move the ball in the current direction
+  ballElement.style.left = `${xBall + movement * direction}px`;
+  // Request another animation
+  animationId = requestAnimationFrame(animateBall);
+};
+
+const startButton = document.getElementById("start1");
+const stopButton = document.getElementById("stop");
+
+startButton.addEventListener("click", () => {
+  // Change button states
+  startButton.disabled = true;
+  stopButton.disabled = false;
+  // Start the animation
+  animationId = requestAnimationFrame(animateBall);
+});
+
+stopButton.addEventListener("click", () => {
+  // Change button states
+  startButton.disabled = false;
+  stopButton.disabled = true;
+  // Stop animation
+  cancelAnimationFrame(animationId);
+});
+  </script>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  #frame {
+  border: 1px solid red;
+}
+
+#block {
+  width: 20px;
+  height: 40px;
+  background: red;
+  position: relative;
+}
+
+</style>
+<body>
+  <div id="frame">
+    <div id="block"></div>
+</body>
+<script>
+  // Move the block to the right, all the way to the end of the frame
+const moveBlock = () => {
+  // Convert the left position of the block (value of the form "XXpx") to a number
+  const xBlock = parseFloat(getComputedStyle(blockElement).left);
+  // Convert the width of the frame (value of the form "XXpx") to a number
+  const xMax = parseFloat(getComputedStyle(frame).width);
+  // If the block isn't already to the end of the frame
+  if (xBlock + blockWidth <= xMax) {
+    // Block movement
+    blockElement.style.left = (xBlock + movement) + "px";
+    animationId = requestAnimationFrame(moveBlock);
+  }
+  else {
+    // Cancel the animation
+    cancelAnimationFrame(animationId);
+  }
+};
+
+const blockElement = document.getElementById("block");
+// Convert the block width (value of the form "XXpx") to a number
+const blockWidth = parseFloat(getComputedStyle(block).width);
+
+// Movement value in pixels
+const movement = 0.5;
+
+// Start the animation
+let animationId = requestAnimationFrame(moveBlock)
+</script>
+</html>
